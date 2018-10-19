@@ -1,0 +1,41 @@
+<html>
+<head></head>
+<body>
+    <textarea rows="20" cols="100" placeholder ="Enter Javascript Here or press ctl+shift+i" id = "jsInput"></textarea><br><br>
+    <input value = "Execute" type = "button" onclick = "execute()" />
+        <button id="refreshButton" onclick="loadScript()">
+            Refresh script
+        </button><br>
+    <div id = "output"></div>
+    <script>
+        var loc = "3dAssets.js";
+        var sandbox;
+        function loadScript() {
+            var js = document.getElementById("sandboxScript");
+            if(js !== null) {
+                var output = document.getElementById("output");
+                output.innerHTML = "<br>Script Refreshed";
+                js.parentNode.removeChild(js);
+            }
+            js = document.createElement("script");
+            js.src = loc;
+            js.id = "sandboxScript";
+            document.body.appendChild(js);
+        }
+        function execute(){
+            var output = document.getElementById("output");
+            output.innerHTML = "";
+            try{
+                text = document.getElementById("jsInput").value;
+                val = text.replace(/(?<!\\w)print(?!\\w)/g,"output.innerHTML += '<br>'+");
+                console.log(val)
+                sandbox(val)
+            }
+            catch(error){
+                output.innerHTML += "<br>" + error.stack
+            }
+        }
+        loadScript(loc)
+    </script>
+</body>
+</html>
