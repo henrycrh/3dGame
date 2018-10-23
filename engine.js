@@ -34,7 +34,7 @@ function render(){
         }
         return
     }
-    //window.requestAnimationFrame(render)    
+    window.requestAnimationFrame(render)    
     
     ping++;
     update(FPS)
